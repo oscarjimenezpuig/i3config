@@ -1,0 +1,220 @@
+# =============================================================================
+# CONFIGURACIÓN DE I3WM - ESTILO DEBIAN (SUAVE, TRANSPARENCIA Y GAPS)
+# =============================================================================
+
+set $mod Mod4
+
+# Fuentes
+font pango:Noto Sans, Cantarell, DejaVu Sans 9
+
+# -----------------------------------------------------------------------------
+# INICIO AUTOMÁTICO (AUTOSTART)
+# -----------------------------------------------------------------------------
+# XDG Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# Gestor de bloqueos y NetworkManager
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+
+# Compositor para Transparencias ligeras (Picom)
+exec_always --no-startup-id picom -b --backend glx --opacity-rule '70:class_g = "Alacritty"'
+
+# Wallpaper (Fondo SVG)
+exec_always --no-startup-id feh --bg-scale ~/Imatges/Wallpapers/wallpaper.svg
+
+# -----------------------------------------------------------------------------
+# TECLAS DE AUDIO Y MULTIMEDIA
+# -----------------------------------------------------------------------------
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# -----------------------------------------------------------------------------
+# COMPORTAMIENTO DE VENTANAS Y RATÓN
+# -----------------------------------------------------------------------------
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+# Teclas básicas (Alacritty como terminal por defecto)
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+q kill
+
+# -----------------------------------------------------------------------------
+# LANZADOR DE APLICACIONES (ROFI CORREGIDO)
+# -----------------------------------------------------------------------------
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/rofi-favoritos.sh
+
+# -----------------------------------------------------------------------------
+# ESPACIADO Y BORDES (GAPS)
+# -----------------------------------------------------------------------------
+# Ocultar barras de título tradicionales
+default_border pixel 2
+default_floating_border pixel 2
+
+# Configuración de Gaps (Espaciado)
+gaps inner 10
+gaps outer 5
+
+smart_gaps on
+smart_borders on
+
+# -----------------------------------------------------------------------------
+# PALETA DE COLORES SUAVES (ESTILO DEBIAN)
+# -----------------------------------------------------------------------------
+set $bg-dark       #1e2430
+set $debian-blue   #3b82f6
+set $debian-red    #e11d48
+set $text-light    #e5e7eb
+set $text-dim      #9ca3af
+set $border-dark   #374151
+
+# Colores de las Ventanas:
+#                       borde          fondo          texto        indicador      borde_hijo
+client.focused          $debian-blue   $debian-blue   $text-light  $debian-red    $debian-blue
+client.focused_inactive $border-dark   $bg-dark       $text-dim    $border-dark   $border-dark
+client.unfocused        $border-dark   $bg-dark       $text-dim    $border-dark   $border-dark
+client.urgent           $debian-red    $debian-red    $text-light  $debian-red    $debian-red
+client.placeholder      $bg-dark       $bg-dark       $text-light  $bg-dark       $bg-dark
+
+# -----------------------------------------------------------------------------
+# NAVEGACIÓN Y MOVIMIENTO DE VENTANAS
+# -----------------------------------------------------------------------------
+# Cambiar foco (Teclas o Flechas)
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+ntilde focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Mover ventanas (Teclas o Flechas)
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+ntilde move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Modos de división
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Pantalla completa y modo flotante
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# Disposición de contenedores
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+a focus parent
+
+# -----------------------------------------------------------------------------
+# ESPACIOS DE TRABAJO (WORKSPACES)
+# -----------------------------------------------------------------------------
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Cambiar a espacio de trabajo
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Mover contenedor a espacio de trabajo
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# -----------------------------------------------------------------------------
+# REINICIO Y SALIDA
+# -----------------------------------------------------------------------------
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/rofi-finalizar.sh 
+
+# -----------------------------------------------------------------------------
+# MODO REDIMENSIONAR (RESIZE MODE)
+# -----------------------------------------------------------------------------
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ntilde resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# -----------------------------------------------------------------------------
+# BARRA DE ESTADO CON TRANSPARENCIA (I3BAR)
+# -----------------------------------------------------------------------------
+bar {
+        status_command i3status
+        position top
+
+        colors {
+                background #1a232e
+                statusline $text-light
+                separator  $border-dark
+
+                #                  borde          fondo          texto
+                focused_workspace  $debian-blue   $debian-blue   $text-light
+                active_workspace   $border-dark   $bg-dark       $text-dim
+                inactive_workspace #cc1e2430      #cc1e2430      $text-dim
+                urgent_workspace   $debian-red    $debian-red    $text-light
+        }
+}
+
+# -----------------------------------------------------------------------------
+# AUTOLOCK
+# -----------------------------------------------------------------------------
+
+exec_always --no-startup-id xset s 600 600
+exec_always --no-startup-id xset dpms 600 600 600
+
+exec --no-startup-id xss-lock -- transfer-sleep-lock i3lock -c 1a232e -u
+
+

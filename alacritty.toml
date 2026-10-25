@@ -1,0 +1,45 @@
+# Configuración de Alacritty - Transparente y Uniforme
+
+[window]
+# Opacidad de la ventana (0.0 totalmente transparente, 1.0 totalmente opaco)
+opacity = 0.90
+
+# Márgenes internos
+padding = { x = 12, y = 12 }
+decorations = "Full"
+
+[font]
+size = 10.0
+
+[font.normal]
+family = "monospace"
+style = "Regular"
+
+# Paleta de colores Debian (Grises y Azules)
+[colors.primary]
+background = "#1e2430"
+foreground = "#e5e7eb"
+
+[colors.cursor]
+cursor = "#3b82f6"
+text = "#1e2430"
+
+[colors.normal]
+black = "#1e2430"
+red = "#e11d48"
+green = "#10b981"
+yellow = "#f59e0b"
+blue = "#3b82f6"
+magenta = "#8b5cf6"
+cyan = "#06b6d4"
+white = "#e5e7eb"
+
+[colors.bright]
+black = "#374151"
+red = "#e11d48"
+green = "#10b981"
+yellow = "#f59e0b"
+blue = "#3b82f6"
+magenta = "#8b5cf6"
+cyan = "#06b6d4"
+white = "#ffffff"

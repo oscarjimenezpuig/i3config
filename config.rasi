@@ -1,0 +1,90 @@
+configuration {
+    modi: "drun,run";
+    font: "Noto Sans 10";
+    show-icons: true;
+    display-drun: "Aplicaciones";
+    drun-display-format: "{name}";
+}
+
+* {
+    /* Paleta uniforme: Grises y Azules limpios */
+    bg-base:        #1e2430;  /* Fondo gris oscuro uniforme */
+    bg-selected:    #3b82f6;  /* Azul suave Debian para selección */
+    bg-input:       #27303f;  /* Fondo de la barra de búsqueda */
+    text-light:     #e5e7eb;  /* Texto claro principal */
+    text-dim:       #9ca3af;  /* Texto secundario */
+    border-color:   #374151;  /* Borde sutil */
+    
+    background-color: transparent;
+    text-color:       @text-light;
+}
+
+window {
+    location:         center;
+    anchor:           center;
+    width:            38%;
+    border:           2px;
+    border-color:     @border-color;
+    border-radius:    8px;
+    background-color: @bg-base;
+    padding:          15px;
+}
+
+mainbox {
+    spacing:          12px;
+    children:         [inputbar, listview];
+}
+
+inputbar {
+    background-color: @bg-input;
+    border-radius:    6px;
+    padding:          10px;
+    spacing:          10px;
+    children:         [prompt, entry];
+}
+
+prompt {
+    text-color:       @text-light;
+}
+
+entry {
+    placeholder:      "Buscar aplicación...";
+    placeholder-color: @text-dim;
+    text-color:       @text-light;
+}
+
+listview {
+    lines:            8;
+    columns:          1;
+    spacing:          4px;
+    scrollbar:        false;
+}
+
+element {
+    padding:          8px 12px;
+    border-radius:    6px;
+    background-color: transparent;
+}
+
+/* Apariencia unificada para todos los elementos (sin alternar colores) */
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @text-light;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    text-color:       #ffffff;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             24px;
+    margin-right:     10px;
+}
